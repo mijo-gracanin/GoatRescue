@@ -1,0 +1,115 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://menuScene/menu.gd" type="Script" id=1]
+[ext_resource path="res://menuScene/menu_bg.tex" type="Texture" id=2]
+[ext_resource path="res://menuScene/credits_button.tex" type="Texture" id=3]
+[ext_resource path="res://menuScene/credits_button_press.tex" type="Texture" id=4]
+[ext_resource path="res://menuScene/hardcore_button.tex" type="Texture" id=5]
+[ext_resource path="res://menuScene/hardcore_button_press.tex" type="Texture" id=6]
+[ext_resource path="res://menuScene/normal_button.tex" type="Texture" id=7]
+[ext_resource path="res://menuScene/normal_button_press.tex" type="Texture" id=8]
+
+[node name="Panel" type="Panel"]
+
+anchor/right = 1
+anchor/bottom = 1
+rect/min_size = Vector2( 480, 360 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+script/script = ExtResource( 1 )
+
+[node name="TextureFrame" type="TextureFrame" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="creditsButton" type="TextureButton" parent="."]
+
+anchor/left = 3
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 50.0
+margin/top = 60.0
+margin/right = -50.0
+margin/bottom = 20.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 3 )
+textures/pressed = ExtResource( 4 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="hardcoreButton" type="TextureButton" parent="."]
+
+anchor/left = 3
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -20.0
+margin/top = 120.0
+margin/right = -160.0
+margin/bottom = 73.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 5 )
+textures/pressed = ExtResource( 6 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[node name="normalButton" type="TextureButton" parent="."]
+
+anchor/left = 3
+anchor/top = 1
+anchor/right = 3
+anchor/bottom = 1
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 160.0
+margin/top = 120.0
+margin/right = 20.0
+margin/bottom = 73.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 7 )
+textures/pressed = ExtResource( 8 )
+params/resize_mode = 0
+params/stretch_mode = 0
+
+[connection signal="pressed" from="creditsButton" to="." method="_on_creditsButton_pressed"]
+
+[connection signal="pressed" from="hardcoreButton" to="." method="_on_hardcoreButton_pressed"]
+
+[connection signal="pressed" from="normalButton" to="." method="_on_normalButton_pressed"]
+
+
