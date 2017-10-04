@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
-[ext_resource path="res://level1Scene/level1Tileset.res" type="TileSet" id=1]
+[ext_resource path="res://level1/level1Tileset.res" type="TileSet" id=1]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://enemy/bat/bat.tscn" type="PackedScene" id=3]
 
-[node name="Node2D" type="Node2D"]
+[node name="level1" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Navigation2D"]
 
 mode = 0
 tile_set = ExtResource( 1 )
@@ -26,8 +29,16 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="player" parent="." instance=ExtResource( 2 )]
+[node name="YSort" type="YSort" parent="."]
+
+sort/enabled = true
+
+[node name="player" parent="YSort" instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 656.382, 1012.13 )
+
+[node name="bat" parent="YSort" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 707.497, 973.979 )
 
 

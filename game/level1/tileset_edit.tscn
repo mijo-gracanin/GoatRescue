@@ -1,6 +1,6 @@
-[gd_scene load_steps=16 format=1]
+[gd_scene load_steps=20 format=1]
 
-[ext_resource path="res://level1Scene/tileset.tex" type="Texture" id=1]
+[ext_resource path="res://level1/tileset.tex" type="Texture" id=1]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -17,6 +17,12 @@ points = Vector2Array( -8, -8, 8, -8, 8, 0, -8, 0 )
 custom_solver_bias = 0.0
 points = Vector2Array( 8, -8, 8, 0, -8, 0, -8, -8 )
 
+[sub_resource type="NavigationPolygon" id=18]
+
+vertices = Vector2Array( 24, 24, -24, 24, -24, -24, 24, -24 )
+polygons = [ IntArray( 0, 1, 2, 3 ) ]
+outlines = [ Vector2Array( 24, -24, -24, -24, -24, 24, 24, 24 ) ]
+
 [sub_resource type="ConvexPolygonShape2D" id=4]
 
 custom_solver_bias = 0.0
@@ -26,6 +32,12 @@ points = Vector2Array( 8, -8, 8, 8, 0, 8, 0, -8 )
 
 custom_solver_bias = 0.0
 points = Vector2Array( -8, -8, 8, -8, 8, 0, -8, 0 )
+
+[sub_resource type="NavigationPolygon" id=15]
+
+vertices = Vector2Array( 8, 8, -8, 8, -8, -8, 8, -8 )
+polygons = [ IntArray( 0, 1, 2, 3 ) ]
+outlines = [ Vector2Array( 8, -8, -8, -8, -8, 8, 8, 8 ) ]
 
 [sub_resource type="ConvexPolygonShape2D" id=6]
 
@@ -37,6 +49,12 @@ points = Vector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
 custom_solver_bias = 0.0
 points = Vector2Array( 8, -8, 8, 0, -8, 0, -8, -8 )
 
+[sub_resource type="NavigationPolygon" id=16]
+
+vertices = Vector2Array( 8, 8, -8, 8, -8, -8, 8, -8 )
+polygons = [ IntArray( 0, 1, 2, 3 ) ]
+outlines = [ Vector2Array( 8, -8, -8, -8, -8, 8, 8, 8 ) ]
+
 [sub_resource type="ConvexPolygonShape2D" id=8]
 
 custom_solver_bias = 0.0
@@ -46,6 +64,12 @@ points = Vector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
 
 custom_solver_bias = 0.0
 points = Vector2Array( -8, -8, 8, -8, 8, 0, -8, 0 )
+
+[sub_resource type="NavigationPolygon" id=17]
+
+vertices = Vector2Array( 8, 8, -8, 8, -8, -8, 8, -8 )
+polygons = [ IntArray( 0, 1, 2, 3 ) ]
+outlines = [ Vector2Array( 8, -8, -8, -8, -8, 8, 8, 8 ) ]
 
 [sub_resource type="ConvexPolygonShape2D" id=10]
 
@@ -174,6 +198,11 @@ texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 0, 64, 48, 48 )
 
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="groundPentagram"]
+
+navpoly = SubResource( 18 )
+enabled = true
+
 [node name="wall" type="Sprite" parent="."]
 
 transform/pos = Vector2( 32, 8 )
@@ -250,9 +279,13 @@ texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 32, 0, 16, 16 )
 
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="ground"]
+
+navpoly = SubResource( 15 )
+enabled = true
+
 [node name="wallBottomLeftBorder" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 56, 32 )
 texture = ExtResource( 1 )
 region = true
@@ -283,7 +316,6 @@ trigger = false
 
 [node name="bricksBottomLeftBorder" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 56, 56 )
 texture = ExtResource( 1 )
 region = true
@@ -319,9 +351,13 @@ texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 48, 0, 16, 16 )
 
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="groundSkull"]
+
+navpoly = SubResource( 16 )
+enabled = true
+
 [node name="wallTopRightBorder" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 80, 32 )
 texture = ExtResource( 1 )
 region = true
@@ -352,7 +388,6 @@ trigger = false
 
 [node name="bricksIvy" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 80, 56 )
 texture = ExtResource( 1 )
 region = true
@@ -388,9 +423,13 @@ texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 64, 0, 16, 16 )
 
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="groundBones"]
+
+navpoly = SubResource( 17 )
+enabled = true
+
 [node name="wallTopLeftBorder" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 104, 32 )
 texture = ExtResource( 1 )
 region = true
@@ -421,7 +460,6 @@ trigger = false
 
 [node name="bricksCandle" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 104, 56 )
 texture = ExtResource( 1 )
 region = true
@@ -452,7 +490,6 @@ trigger = false
 
 [node name="exit" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 128, 8 )
 texture = ExtResource( 1 )
 region = true
@@ -483,7 +520,6 @@ trigger = false
 
 [node name="wallRightBorder" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 128, 32 )
 texture = ExtResource( 1 )
 region = true
@@ -514,7 +550,6 @@ trigger = false
 
 [node name="wallLeftBorder" type="Sprite" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 128, 56 )
 texture = ExtResource( 1 )
 region = true

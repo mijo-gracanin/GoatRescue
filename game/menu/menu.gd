@@ -10,7 +10,7 @@ func _ready():
 	pass
 
 func _on_normalButton_pressed():
-	get_tree().change_scene("res://level1Scene/level1.tscn")
+	get_tree().change_scene("res://level1/level1.tscn")
 
 func _on_hardcoreButton_pressed():
 	pass # replace with function body

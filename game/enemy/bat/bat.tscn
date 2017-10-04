@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://enemy/bat/bat.gd" type="Script" id=1]
+[ext_resource path="res://enemy/bat/bat.tex" type="Texture" id=2]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 7.7858, 7.33378, -7.45827, 7.08987, -9.77951, -3.91717, 9.06602, -3.76878 )
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "movement"
+length = 0.36
+loop = true
+step = 0.12
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.12, 0.24 ),
+"transitions": FloatArray( 1, 1, 1 ),
+"update": 1,
+"values": [ Rect2( 0, 0, 32, 16 ), Rect2( 32, 0, 32, 16 ), Rect2( 64, 0, 32, 16 ) ]
+}
+
+[node name="bat" type="Area2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+
+build_mode = 0
+polygon = Vector2Array( 9.06602, -3.76878, -9.77951, -3.91717, -7.45827, 7.08987, 7.7858, 7.33378 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+region = true
+region_rect = Rect2( 64, 0, 32, 16 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/movement = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "movement"
+
+[connection signal="body_enter" from="." to="." method="_on_bat_body_enter"]
+
+[connection signal="body_exit" from="." to="." method="_on_bat_body_exit"]
+
+

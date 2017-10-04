@@ -1,13 +1,13 @@
 [gd_scene load_steps=9 format=1]
 
-[ext_resource path="res://menuScene/menu.gd" type="Script" id=1]
-[ext_resource path="res://menuScene/menu_bg.tex" type="Texture" id=2]
-[ext_resource path="res://menuScene/credits_button.tex" type="Texture" id=3]
-[ext_resource path="res://menuScene/credits_button_press.tex" type="Texture" id=4]
-[ext_resource path="res://menuScene/hardcore_button.tex" type="Texture" id=5]
-[ext_resource path="res://menuScene/hardcore_button_press.tex" type="Texture" id=6]
-[ext_resource path="res://menuScene/normal_button.tex" type="Texture" id=7]
-[ext_resource path="res://menuScene/normal_button_press.tex" type="Texture" id=8]
+[ext_resource path="res://menu/menu.gd" type="Script" id=1]
+[ext_resource path="res://menu/menu_bg.tex" type="Texture" id=2]
+[ext_resource path="res://menu/credits_button.tex" type="Texture" id=3]
+[ext_resource path="res://menu/credits_button_press.tex" type="Texture" id=4]
+[ext_resource path="res://menu/hardcore_button.tex" type="Texture" id=5]
+[ext_resource path="res://menu/hardcore_button_press.tex" type="Texture" id=6]
+[ext_resource path="res://menu/normal_button.tex" type="Texture" id=7]
+[ext_resource path="res://menu/normal_button_press.tex" type="Texture" id=8]
 
 [node name="Panel" type="Panel"]
 
