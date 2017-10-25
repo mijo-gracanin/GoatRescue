@@ -1,18 +1,44 @@
 extends KinematicBody2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+const SPEED = 80
+const MOVING_BACKWARD_SPEED_PENALTY = 0.6
+const ATTACK_TIME = 0.5
+const INVINCIBILITY_TIME = 0.15
+const projectile_scene = preload("res://projectile/projectile.tscn")
+
+var health = 50 setget set_health
+var attack_timer = 0
+var invincibility_timer = 0
+var is_facing_right = true
 
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
-		set_fixed_process(true)
+	set_fixed_process(true)
 
 func _fixed_process(delta):
+	update_facing()
 	process_input(delta)
 	
+func update_facing():
+	var mouse_pos = get_relative_mouse_pos()
+
+	if mouse_pos.x >= 0 && !is_facing_right:
+		is_facing_right = true
+		scale(Vector2(1, 1))
+	elif mouse_pos.x < 0 && is_facing_right:
+		is_facing_right = false
+		scale(Vector2(-1, 1))
+
+func get_relative_mouse_pos():
+	var mouse_pos = get_local_mouse_pos()
+	if !is_facing_right:
+		mouse_pos.x = -mouse_pos.x
+	return mouse_pos
+
 func process_input(delta):
+	process_movement(delta)
+	process_attacks(delta)
+
+func process_movement(delta):
 	var movement_direction = Vector2(0, 0)
 	
 	if Input.is_action_pressed("move_up"):
@@ -24,10 +50,36 @@ func process_input(delta):
 	if Input.is_action_pressed("move_right"):
 		movement_direction += Vector2(1, 0)
 		
-	movement_direction = movement_direction.normalized() * delta * 80
+	movement_direction = movement_direction.normalized() * delta * SPEED
 	self.move(movement_direction)
 	
 	if movement_direction.length() > 0 and !get_node("AnimationPlayer").is_playing():
 		get_node("AnimationPlayer").play("Movement")
 	elif movement_direction.length() == 0 and get_node("AnimationPlayer").is_playing():
 		get_node("AnimationPlayer").stop()
+
+func process_attacks(delta):
+	if attack_timer > 0:
+		attack_timer -= delta
+		return
+		
+	if Input.is_action_pressed("lmb_action"):
+		attack_timer = ATTACK_TIME
+		var projectile = projectile_scene.instance()
+		var cast_pos = get_pos()
+		get_parent().add_child(projectile)
+		projectile.set_pos(cast_pos)
+		projectile.direction = get_relative_mouse_pos()
+
+func set_health(value):
+	if invincibility_timer > 0:
+		return
+		
+	if value < health:
+		invincibility_timer = INVINCIBILITY_TIME
+		
+	if value <= 0:
+		queue_free()
+		# TODO: play some dying animation
+	health = value
+		
