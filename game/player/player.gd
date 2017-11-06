@@ -10,11 +10,15 @@ var health = 50 setget set_health
 var attack_timer = 0
 var invincibility_timer = 0
 var is_facing_right = true
+var is_frozen = true
 
 func _ready():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
+	if is_frozen:
+		return
+		
 	update_facing()
 	process_input(delta)
 	
@@ -66,10 +70,16 @@ func process_attacks(delta):
 	if Input.is_action_pressed("lmb_action"):
 		attack_timer = ATTACK_TIME
 		var projectile = projectile_scene.instance()
-		var cast_pos = get_pos()
+		var cast_pos = get_pos() + get_cast_offset()
 		get_parent().add_child(projectile)
 		projectile.set_pos(cast_pos)
-		projectile.direction = get_relative_mouse_pos()
+		projectile.direction = get_relative_mouse_pos() - get_cast_offset()
+		
+func get_cast_offset():
+	var x = 8 if is_facing_right else -8
+	return Vector2(x, -10)
+	
+
 
 func set_health(value):
 	if invincibility_timer > 0:

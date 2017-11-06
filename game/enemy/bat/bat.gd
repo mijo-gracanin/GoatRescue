@@ -6,7 +6,7 @@ const SPEED = 40
 
 enum {MOVE, ATTACK}
 
-var health = 10 setget set_health
+var health = 20 setget set_health
 var mode = MOVE
 var path = []
 onready var navigation = get_node("../../Navigation2D")
