@@ -13,9 +13,9 @@ var is_facing_right = true
 var is_frozen = true
 
 func _ready():
-	set_fixed_process(true)
+	set_physics_process(true)
 
-func _fixed_process(delta):
+func _physics_process(delta):
 	if is_frozen:
 		return
 		
@@ -23,17 +23,14 @@ func _fixed_process(delta):
 	process_input(delta)
 	
 func update_facing():
-	var mouse_pos = get_relative_mouse_pos()
+	var mouse_pos = get_local_mouse_position()
 
-	if mouse_pos.x >= 0 && !is_facing_right:
-		is_facing_right = true
-		scale(Vector2(1, 1))
-	elif mouse_pos.x < 0 && is_facing_right:
-		is_facing_right = false
-		scale(Vector2(-1, 1))
+	if mouse_pos.x < 0:
+		is_facing_right = !is_facing_right
+		apply_scale(Vector2(-1, 1))
 
-func get_relative_mouse_pos():
-	var mouse_pos = get_local_mouse_pos()
+func get_relative_mouse_position():
+	var mouse_pos = get_local_mouse_position()
 	if !is_facing_right:
 		mouse_pos.x = -mouse_pos.x
 	return mouse_pos
@@ -55,7 +52,7 @@ func process_movement(delta):
 		movement_direction += Vector2(1, 0)
 		
 	movement_direction = movement_direction.normalized() * delta * SPEED
-	self.move(movement_direction)
+	self.move_and_collide(movement_direction)
 	
 	if movement_direction.length() > 0 and !get_node("AnimationPlayer").is_playing():
 		get_node("AnimationPlayer").play("Movement")
@@ -70,16 +67,15 @@ func process_attacks(delta):
 	if Input.is_action_pressed("lmb_action"):
 		attack_timer = ATTACK_TIME
 		var projectile = projectile_scene.instance()
-		var cast_pos = get_pos() + get_cast_offset()
+		var cast_pos = get_position() + get_cast_offset()
 		get_parent().add_child(projectile)
-		projectile.set_pos(cast_pos)
-		projectile.direction = get_relative_mouse_pos() - get_cast_offset()
+		projectile.set_position(cast_pos)
+		projectile.direction = get_relative_mouse_position() - get_cast_offset()
 		
 func get_cast_offset():
 	var x = 8 if is_facing_right else -8
 	return Vector2(x, -10)
 	
-
 
 func set_health(value):
 	if invincibility_timer > 0:

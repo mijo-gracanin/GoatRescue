@@ -13,31 +13,31 @@ onready var navigation = get_node("../../Navigation2D")
 onready var player = get_node("../player")
 
 func _ready():
-	set_fixed_process(true)
+	set_physics_process(true)
 	
-func _fixed_process(delta):
+func _physics_process(delta):
 	if mode == MOVE:
-		move(delta)
+		move_and_collide(delta)
 	else:
 		attack(delta)
 	
-func move(delta):
-	if get_pos().distance_to(player.get_pos()) < 8:
+func move_and_collide(delta):
+	if get_position().distance_to(player.get_position()) < 8:
 		return
 		
-	if path.size() == 0 or path[-1].distance_to(player.get_pos()) > 60:
-		path = navigation.get_simple_path(get_pos(), player.get_pos(), false)
+	if path.size() == 0 or path[-1].distance_to(player.get_position()) > 60:
+		path = navigation.get_simple_path(get_position(), player.get_position(), false)
 		#print("PATH size: ", path.size())
 	
 	if path.size() > 1:
-		var distance = get_pos().distance_to(path[0])
+		var distance = get_position().distance_to(path[0])
 		if distance > 2:
-			set_pos(get_pos().linear_interpolate(path[0], (SPEED * delta) / distance))
+			set_position(get_position().linear_interpolate(path[0], (SPEED * delta) / distance))
 		else:
 			path.remove(0)
 	else:
-		var velocity = (player.get_pos() - get_pos()).normalized() * SPEED * delta
-		set_pos(get_pos() + velocity)
+		var velocity = (player.get_position() - get_position()).normalized() * SPEED * delta
+		set_position(get_position() + velocity)
 	
 func attack(delta):
 	pass
@@ -55,3 +55,4 @@ func _on_bat_body_enter(body):
 func _on_bat_body_exit(body):
 	if body.get_name() == "player":
 		mode = MOVE
+

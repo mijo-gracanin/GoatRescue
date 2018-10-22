@@ -17,3 +17,4 @@ func _on_hardcoreButton_pressed():
 
 func _on_creditsButton_pressed():
 	pass # replace with function body
+
